@@ -30,6 +30,8 @@ type Options struct {
 	Height              int              `hcl:"height" flagName:"height" flagDescribe:"Static height of the screen, 0(default) means dynamically resize" default:"0"`
 	WSOrigin            string           `hcl:"ws_origin" flagName:"ws-origin" flagDescribe:"A regular expression that matches origin URLs to be accepted by WebSocket. No cross origin requests are acceptable by default" default:""`
 	Term                string           `hcl:"term" flagName:"term" flagDescribe:"Terminal name to use on the browser, one of xterm or hterm." default:"xterm"`
+	//**** add prefix_path flag to enable set path such as "/ssh".    -- steven[2018-9-4]
+	PrefixPath string `hcl:"prefix_path" flagName:"prefix_path" flagDescribe:"URL path's prefix'" default:"/"`
 
 	TitleVariables map[string]interface{}
 }

@@ -18,9 +18,9 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
 
-	"github.com/yudai/gotty/pkg/homedir"
-	"github.com/yudai/gotty/pkg/randomstring"
-	"github.com/yudai/gotty/webtty"
+	"github.com/xiaomi-tc/gotty/pkg/homedir"
+	"github.com/xiaomi-tc/gotty/pkg/randomstring"
+	"github.com/xiaomi-tc/gotty/webtty"
 )
 
 // Server provides a webtty HTTP endpoint.
@@ -95,9 +95,12 @@ func (server *Server) Run(ctx context.Context, options ...RunOption) error {
 
 	counter := newCounter(time.Duration(server.options.Timeout) * time.Second)
 
-	path := "/"
+	//**** add prefix_path flag to enable set path such as "/ssh".   -- steven[2018-9-4]
+	//path := "/"
+	path := server.options.PrefixPath // -- steven[2018-9-4]
 	if server.options.EnableRandomUrl {
-		path = "/" + randomstring.Generate(server.options.RandomUrlLength) + "/"
+		//path = "/" + randomstring.Generate(server.options.RandomUrlLength) + "/"
+		path = path + randomstring.Generate(server.options.RandomUrlLength) + "/"
 	}
 
 	handlers := server.setupHandlers(cctx, cancel, path, counter)
